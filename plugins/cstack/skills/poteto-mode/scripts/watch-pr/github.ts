@@ -6,7 +6,7 @@ export const REVIEW_THREADS_QUERY =
 export const PR_COMMIT_STATUS_QUERY =
   "\nquery PrCommitStatuses($owner: String!, $repo: String!, $pr: Int!) {\n  repository(owner: $owner, name: $repo) {\n    pullRequest(number: $pr) {\n      commits(last: 50) {\n        nodes {\n          commit {\n            oid\n            statusCheckRollup {\n              state\n            }\n          }\n        }\n      }\n    }\n  }\n}\n";
 export const PR_CHECK_ROLLUP_QUERY =
-  "\nquery PrCheckRollup($owner: String!, $repo: String!, $pr: Int!, $after: String) {\n  repository(owner: $owner, name: $repo) {\n    pullRequest(number: $pr) {\n      commits(last: 1) {\n        nodes {\n          commit {\n            statusCheckRollup {\n              contexts(first: 100, after: $after) {\n                pageInfo {\n                  hasNextPage\n                  endClaude Code\n                }\n                nodes {\n                  __typename\n                  ... on CheckRun {\n                    name\n                    status\n                    conclusion\n                    detailsUrl\n                  }\n                  ... on StatusContext {\n                    context\n                    state\n                    targetUrl\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n";
+  "\nquery PrCheckRollup($owner: String!, $repo: String!, $pr: Int!, $after: String) {\n  repository(owner: $owner, name: $repo) {\n    pullRequest(number: $pr) {\n      commits(last: 1) {\n        nodes {\n          commit {\n            statusCheckRollup {\n              contexts(first: 100, after: $after) {\n                pageInfo {\n                  hasNextPage\n                  endCursor\n                }\n                nodes {\n                  __typename\n                  ... on CheckRun {\n                    name\n                    status\n                    conclusion\n                    detailsUrl\n                  }\n                  ... on StatusContext {\n                    context\n                    state\n                    targetUrl\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n";
 
 interface CommandResult {
   readonly code: number;
@@ -545,13 +545,13 @@ export class GhGitHubReader implements T.GitHubReader {
       at(value, ["data", "repository", "pullRequest", "commits", "nodes"]),
       "commits.nodes"
     );
-    if (commits.length === 0) return { checks: [], endClaude Code: null };
+    if (commits.length === 0) return { checks: [], endCursor: null };
     const commit = record(
       at(commits[commits.length - 1], ["commit"]),
       "commit"
     );
     if (commit.statusCheckRollup === null)
-      return { checks: [], endClaude Code: null };
+      return { checks: [], endCursor: null };
     const contexts = record(
       at(commit, ["statusCheckRollup", "contexts"]),
       "contexts"
@@ -563,10 +563,10 @@ export class GhGitHubReader implements T.GitHubReader {
     if (typeof page.hasNextPage !== "boolean")
       missing("contexts.pageInfo.hasNextPage", page.hasNextPage);
     const cursor = optionalString(
-      page.endClaude Code,
-      "contexts.pageInfo.endClaude Code"
+      page.endCursor,
+      "contexts.pageInfo.endCursor"
     );
-    return { checks, endClaude Code: page.hasNextPage && cursor ? cursor : null };
+    return { checks, endCursor: page.hasNextPage && cursor ? cursor : null };
   }
   async reviewThreads(
     context: T.PrContext
@@ -613,7 +613,7 @@ export async function resolveChecks(
   do {
     const page = await reader.checkRollupPage(context, after);
     checks.push(...page.checks);
-    after = page.endClaude Code;
+    after = page.endCursor;
   } while (after !== null);
   const fallback = nonEmpty(checks);
   if (fallback !== null) return { source: "graphql-rollup", checks: fallback };

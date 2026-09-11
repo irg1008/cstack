@@ -37,12 +37,12 @@ Use `candidate` for one or two examples. Use `recurring` after multiple real dis
 - Do not skip when: The comment points to accessibility, focus visibility, keyboard navigation, color contrast, or a component API contract that the PR did not intentionally change.
 - Example signal: Comments about focus outlines, button sizes, spacing, or shared component visual defaults where the owner replies "intentional" or "intended".
 
-### Ucstack or stack-local usage Bugbot cannot see
+### Upstack or stack-local usage Bugbot cannot see
 
 - Confidence: candidate
 - Skip when: Bugbot flags an export, component, helper, or file as unused, and `gt ls -s`, upper-stack diffs, or PR context shows it is used by a later PR in the stack.
-- Do not skip when: The current PR is not part of a stack, the symbol is public API, or the supposed ucstack use cannot be verified.
-- Example signal: "Exported component is never used" with a human reply like "used ucstack".
+- Do not skip when: The current PR is not part of a stack, the symbol is public API, or the supposed upstack use cannot be verified.
+- Example signal: "Exported component is never used" with a human reply like "used upstack".
 
 ### Temporary duplication during parallel implementation
 

@@ -192,6 +192,8 @@ Paths and manifests, mostly. Four things are worth knowing.
 
 **Tool parameters were remapped.** `Task` is `Agent`. `generalPurpose` is `general-purpose`. `readonly: true` is `subagent_type: Explore`. `environment: "cloud"` is `isolation: "remote"`.
 
+Those renames were applied to prose only. `skills/poteto-mode/scripts/` is upstream's code byte for byte, apart from one transcript path, so its identifiers stay intact. Typecheck and `bun test orch watch-pr` pass; two orch tests fail on Windows because upstream's fake `gt` helper writes an extensionless shell script and joins `PATH` with `:`.
+
 **`deslop` is vendored in.** pstack calls a `deslop` skill from the separate `cursor-team-kit` Cursor plugin. It is included here, merged with the upstream version, so cstack stands alone.
 
 **`control-ui` and `control-cli` have no equivalent.** Also `cursor-team-kit`. References now point at `create-verification-skill`, which generates a project-local `verify-*` skill that does the same job.

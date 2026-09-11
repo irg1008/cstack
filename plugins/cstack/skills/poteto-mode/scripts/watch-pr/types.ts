@@ -232,11 +232,11 @@ export type QueryFailure =
 /**
  * `frontier` names the lowest unmerged PR that is actually waiting, and
  * `pending` is that PR's checks only. Pooling every row's pending under the
- * bottom PR's number misattributed ucstack waits to the frontier.
+ * bottom PR's number misattributed upstack waits to the frontier.
  *
  * This decision serves single and `--stack` mode. Queued mode deliberately
  * reports its own merge frontier instead: when that PR is blocker-free it
- * emits a merge-queue wait that ignores ucstack pending, because ucstack
+ * emits a merge-queue wait that ignores upstack pending, because upstack
  * checks do not block the frontier's merge. That is the Python watcher's
  * contract, not an attribution bug.
  */
@@ -377,7 +377,7 @@ export type ChecksFastPath =
     };
 export interface RollupPage {
   readonly checks: readonly Check[];
-  readonly endClaude Code: string | null;
+  readonly endCursor: string | null;
 }
 export interface GitHubReader {
   originRepo(): Promise<Repository | null>;
