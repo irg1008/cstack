@@ -6,7 +6,7 @@
 
 46 skills and 2 agents for Claude Code. Orchestration, adversarial review, real verification, and 21 engineering principles.
 
-A Claude Code port of [pstack](https://github.com/backnotprop/pstack) by Lauren Tan.
+A Claude Code port of [pstack](https://github.com/cursor/plugins/tree/main/pstack) by [Lauren Tan](https://github.com/poteto).
 
 </div>
 
@@ -202,4 +202,4 @@ Those renames were applied to prose only. `skills/poteto-mode/scripts/` is upstr
 
 ## Credits
 
-All skill content is [Lauren Tan's](https://github.com/backnotprop), MIT licensed. `deslop` is from [cursor-team-kit](https://github.com/cursor/plugins/tree/main/cursor-team-kit) by Eric Zakariasson, also MIT. This repo is the port, not the ideas.
+All skill content is [Lauren Tan's](https://github.com/poteto), MIT licensed. `deslop` is from [cursor-team-kit](https://github.com/cursor/plugins/tree/main/cursor-team-kit) by Eric Zakariasson, also MIT. This repo is the port, not the ideas.
