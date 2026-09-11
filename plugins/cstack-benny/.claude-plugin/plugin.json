@@ -1,0 +1,13 @@
+{
+  "name": "cstack-benny",
+  "version": "0.1.0",
+  "description": "Benny automations for cstack: triage incoming issue reports and reproduce-and-fix them unattended.",
+  "author": {
+    "name": "irg1008",
+    "url": "https://github.com/irg1008"
+  },
+  "homepage": "https://github.com/irg1008/cstack",
+  "repository": "https://github.com/irg1008/cstack",
+  "license": "MIT",
+  "keywords": ["cstack", "benny", "automation", "triage", "issues"]
+}

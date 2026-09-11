@@ -1,0 +1,23 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "cstack",
+  "description": "cstack: a Claude Code port of pstack. Rigorous agent workflows you can parallelize with confidence.",
+  "owner": {
+    "name": "irg1008",
+    "url": "https://github.com/irg1008"
+  },
+  "plugins": [
+    {
+      "name": "cstack",
+      "source": "./plugins/cstack",
+      "description": "45 skills and 2 agents: workflow orchestration, investigation, adversarial review, verification, and 21 engineering principles.",
+      "category": "developer-tools"
+    },
+    {
+      "name": "cstack-benny",
+      "source": "./plugins/cstack-benny",
+      "description": "Benny: unattended issue triage and reproduce-and-fix automations driven from a chat channel.",
+      "category": "developer-tools"
+    }
+  ]
+}
