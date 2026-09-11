@@ -68,8 +68,8 @@ i want you to merge this entry into the target repository's `.claude/settings.js
 
 ```json
 {
-	"plugins": {
-		"cstack": { "enabled": true }
+	"enabledPlugins": {
+		"cstack@cstack": true
 	}
 }
 ```
@@ -82,8 +82,8 @@ if project-scoped plugins are unavailable or any shared dependency does not reso
 
 tell me that `.claude/settings.json`, `.claude/automations/benny/`, and any referenced secret-free configuration must be committed before either automation is enabled. do not create or update an automation until i explicitly ask.
 
-for first-time creation, use built-in `/automate` once for triage and once for repro and fix. complete the draft review, approval, readiness check, and Automations editor handoff for the first automation before starting the second.
+for first-time creation, wire each automation to a runner yourself. claude code has no built-in automation editor, so see [`RUNNERS.md`](./RUNNERS.md) for the two supported paths. finish and verify the triage runner before starting the repro runner.
 
-paraphrase this intent and the finished configuration into each draft. the triage prompt must read and follow `.claude/automations/benny/skills/triage-issue-reports/SKILL.md`. the repro prompt must read and follow `.claude/automations/benny/skills/reproduce-and-fix-issues/SKILL.md`. use these repo-relative paths only after `/automate` confirms they are committed in the repository where the automation will run.
+paraphrase this intent and the finished configuration into each draft. the triage prompt must read and follow `.claude/automations/benny/skills/triage-issue-reports/SKILL.md`. the repro prompt must read and follow `.claude/automations/benny/skills/reproduce-and-fix-issues/SKILL.md`. use these repo-relative paths only after you have confirmed with `git ls-files` that they are committed in the repository where the automation will run.
 
-for existing automations, do not use `/automate` to inspect or update them. validate the configuration, then use the concise field checklist in the copied setup file so i can edit each automation directly in its editor. do not create duplicates.
+for existing automations, validate the configuration, then use the concise field checklist in the copied setup file so i can edit each runner's own workflow file or schedule directly. do not create duplicates.

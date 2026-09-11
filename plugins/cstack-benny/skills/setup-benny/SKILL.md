@@ -16,7 +16,7 @@ Do not create or update an automation until the user explicitly asks. Never put 
 
 ## 1. Copy the pack and enable shared cstack skills
 
-Do this before asking for Benny configuration and before invoking the built-in `/automate` skill.
+Do this before asking for Benny configuration and before wiring any runner.
 
 Ask which repository will run the automations. The source pack is the directory containing `FOR_AGENTS.md`. The destination is `<target-repository>/.claude/automations/benny/`.
 
@@ -37,8 +37,8 @@ Merge this entry into the existing JSON or JSONC:
 
 ```json
 {
-	"plugins": {
-		"cstack": { "enabled": true }
+	"enabledPlugins": {
+		"cstack@cstack": true
 	}
 }
 ```
@@ -87,7 +87,7 @@ Fill one feature-map section for every user-facing feature the automation may re
 
 Do not edit the copied examples. Pack refreshes may update source-managed files after conflict review, but they must never touch the user-owned copies.
 
-Prefer committed, secret-free files in the target repository when a fresh automation checkout must read them. Otherwise paraphrase the required values into the live prompt. Reference a repository file only after the built-in `/automate` skill confirms that the file is committed in the repository where the automation runs.
+Prefer committed, secret-free files in the target repository when a fresh automation checkout must read them. Otherwise paraphrase the required values into the live prompt. Reference a repository file only after `git ls-files` confirms it is committed in the repository where the automation runs.
 
 Use stable repository-relative paths for committed pack and configuration files. Never reference the plugin source directory or a plugin cache path from a live automation.
 
@@ -183,7 +183,7 @@ For each automation:
 5. Read and follow the built-in `automate` skill.
 6. Let `automate` discover Slack channels, the repository, and connected integrations.
 7. Let `automate` confirm that the copied pack and any referenced configuration files are committed in the same repository where the automation will run.
-8. Let `automate` show its draft table, obtain approval, ask readiness, and open the Automations editor.
+8. Show the draft configuration as a table, obtain explicit approval, confirm readiness, then wire the runner per `RUNNERS.md`.
 9. Finish the editor handoff for this automation before starting the next one.
 
 Give `automate` this complete triage intent, filled from configuration:
@@ -239,11 +239,11 @@ For the existing repro automation, update:
 - Tracker, control-adapter, and feature-map requirements
 - Paraphrased marker wait, evidence, verification, and bounded-fix instructions
 
-Ask the user to update each existing automation directly in its Automations editor. Do not create replacements or duplicates.
+Ask the user to update each existing automation directly in its own workflow file or schedule definition. Do not create replacements or duplicates.
 
 ### Creation boundary
 
-Never call a direct automation backend service or backend automation tool. Never use a browser URL that carries draft fields. Never build or open a Claude Code protocol deep link. For new automations, the only finish path is the built-in `automate` skill's reviewed Automations editor handoff.
+Never call a direct automation backend service or backend automation tool. Never use a browser URL that carries draft fields. Never build or open a Claude Code protocol deep link. For new automations, the only finish path is a reviewed, committed runner definition per `RUNNERS.md`, approved by the user before it is enabled.
 
 Do not enable either automation until the thread-safety test passes after the editor save.
 

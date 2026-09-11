@@ -47,7 +47,7 @@ Paths and manifests, mostly. Four changes are worth knowing about.
 
 **`control-ui` and `control-cli` have no equivalent.** Those also live in `cursor-team-kit`. References to them now point at `create-verification-skill`, which generates a project-local `verify-*` skill that does the same job.
 
-Benny carries one unported piece: Cursor's background automation runner has no direct Claude Code counterpart. The skills and prompt templates are here and the paths are rewritten to `.claude/`, but wiring them to a scheduler is still on you — a GitHub Action or a scheduled Claude Code task.
+Benny carries one unported piece: Cursor's built-in automation editor has no Claude Code counterpart. The skills, prompt templates and boundaries are all here with `.claude/` paths, but you wire the trigger yourself. `plugins/cstack-benny/RUNNERS.md` covers the two paths, GitHub Actions or scheduled polling, with working workflow YAML.
 
 ## Credits
 
