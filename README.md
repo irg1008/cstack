@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo.png" width="96" alt="cstack" />
+
 # cstack
 
 **If you want to go fast, go deep first.**
