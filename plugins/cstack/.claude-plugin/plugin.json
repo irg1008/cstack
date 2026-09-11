@@ -1,6 +1,6 @@
 {
   "name": "cstack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "if you want to go fast, go deep first. cstack helps you write less, but higher quality code. rigorous agent workflows you can parallelize with confidence.",
   "author": {
     "name": "irg1008",
