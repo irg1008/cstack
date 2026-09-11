@@ -4,7 +4,7 @@
 
 **If you want to go fast, go deep first.**
 
-46 skills and 2 agents for Claude Code. Orchestration, adversarial review, real verification, and 21 engineering principles that apply themselves.
+46 skills and 2 agents for Claude Code. Orchestration, adversarial review, real verification, and 21 engineering principles.
 
 A Claude Code port of [pstack](https://github.com/backnotprop/pstack) by Lauren Tan.
 
@@ -135,13 +135,13 @@ You do not have to adopt the whole thing. Most skills work standalone. `/how` an
 </details>
 
 <details>
-<summary><b>The 21 principles.</b> One idea each, applied automatically</summary>
+<summary><b>The 21 principles.</b> One idea each, routed by poteto-mode</summary>
 
 <br/>
 
-These are not commands you run. Each is a small skill with a narrow trigger, so Claude reaches for the right one while working. `principle-fix-root-causes` fires when debugging. `principle-type-system-discipline` fires when you write a function signature.
+Each is a small skill holding one idea. They are marked `disable-model-invocation`, so Claude does not reach for them on its own: `/poteto-mode` routes to the right one from its Principles index while working, and you can invoke any of them directly. Running the whole stack without `/poteto-mode` leaves them dormant.
 
-| Principle | Fires when |
+| Principle | Applies when |
 | --- | --- |
 | `fix-root-causes` | Debugging. Trace each symptom to its root; resist nil-checks that silence crashes |
 | `prove-it-works` | Before declaring done. Verify against the real artifact, not a proxy |
@@ -178,7 +178,9 @@ It never posts a root message, never merges, never deploys, and fails closed whe
 
 Claude Code loads every installed skill's name and description into context, and the body only when a skill runs.
 
-`cstack` adds roughly **2,700 tokens** per session. About 1,000 of that is the 21 principles. If that trade is wrong for you, delete `plugins/cstack/skills/principle-*` from your local install.
+`cstack` adds roughly **2,700 tokens** per session. About 1,000 of that is the 21 principles.
+
+Only 6 skills are auto-invocable: `deslop`, `how`, `why`, `unslop`, `typescript-best-practices` and `setup-cstack`. The other 39 carry `disable-model-invocation: true`, so they run when you type them or when `/poteto-mode` routes to them. That is deliberate: 45 skills all competing to auto-fire would be worse than none. It does mean you have to know the slash commands exist, which is what the routing table above is for.
 
 ---
 
